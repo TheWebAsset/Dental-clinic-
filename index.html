@@ -3,279 +3,393 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AuraSmile Dental Studio | Modern Aesthetics & Care</title>
+  <title>Gayatri Dental Studio | Next-Gen Aesthetics & Implants</title>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Premium Modern Font: Outfit -->
+  
+  <!-- Three.js for Lightweight 3D Canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Google Fonts: Syne (Ultra Modern) & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Syne"', 'sans-serif'],
+          },
+          colors: {
+            neon: {
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              violet: '#8b5cf6',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
     body {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #090d16;
+      color: #f1f5f9;
       -webkit-tap-highlight-color: transparent;
     }
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.82);
+    .font-display { font-family: 'Syne', sans-serif; }
+
+    /* Modern Glassmorphism & Neon Glow */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .gradient-badge {
-      background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
+    .glass-panel-hover:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.25);
     }
-    .soft-glow {
-      box-shadow: 0 20px 40px -15px rgba(14, 165, 233, 0.15);
+    .neon-gradient-text {
+      background: linear-gradient(135deg, #38bdf8 0%, #2dd4bf 50%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .neon-btn {
+      background: linear-gradient(135deg, #06b6d4 0%, #0d9488 100%);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+    }
+    .neon-btn:hover {
+      box-shadow: 0 0 35px rgba(6, 182, 212, 0.6);
+    }
+
+    /* Comparison Slider */
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      user-select: none;
+    }
+    .img-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 50%;
+      overflow: hidden;
+    }
+    .slider-range {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: ew-resize;
+      width: 100%;
+      height: 100%;
+      z-index: 30;
     }
   </style>
 </head>
-<body class="bg-[#fafbfd] text-slate-900 antialiased selection:bg-teal-100 selection:text-teal-900">
+<body class="selection:bg-cyan-500 selection:text-black">
 
-  <!-- Ambient Decorative Background Blur -->
-  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[420px] bg-gradient-to-tr from-cyan-100/40 via-sky-100/30 to-teal-100/30 blur-3xl -z-10 pointer-events-none"></div>
+  <!-- Ambient Background Glow Circles -->
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="fixed top-1/3 right-10 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-  <!-- Sleek Aesthetic Navbar -->
-  <header class="sticky top-0 z-50 glass-nav border-b border-slate-100/80 transition-all duration-300">
-    <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-600 to-teal-500 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+  <!-- Top Announcement Bar -->
+  <div class="bg-slate-950/80 border-b border-slate-800 text-xs py-2 px-4 text-center font-medium text-slate-400 flex justify-center items-center gap-2">
+    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+    <span>Raipur's 1st AI-Guided Digital Dental & Implant Clinic • Open Mon-Sat</span>
+  </div>
+
+  <!-- Glass Navbar -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-violet-600 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-cyan-500/20">
           ✦
         </div>
         <div>
-          <span class="text-xl font-bold tracking-tight text-slate-900">Aura<span class="text-teal-600">Smile</span></span>
-          <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Dental Studio</span>
+          <span class="text-xl font-display font-black tracking-wider text-white">GAYATRI<span class="text-cyan-400">.</span></span>
+          <span class="block text-[9px] uppercase tracking-widest text-slate-400 font-bold -mt-1">Dental Studio • Raipur</span>
         </div>
       </div>
 
-      <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-        <a href="#services" class="hover:text-teal-600 transition">Treatments</a>
-        <a href="#results" class="hover:text-teal-600 transition">Smile Gallery</a>
-        <a href="#experience" class="hover:text-teal-600 transition">The Clinic</a>
+      <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-semibold text-slate-300">
+        <a href="#services" class="hover:text-cyan-400 transition">Treatments</a>
+        <a href="#transformations" class="hover:text-cyan-400 transition">Transformations</a>
+        <a href="#location" class="hover:text-cyan-400 transition">Location</a>
+        <a href="#booking" class="hover:text-cyan-400 transition">Book Slot</a>
       </nav>
 
-      <a href="#booking" class="gradient-badge hover:opacity-95 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm transition">
-        Reserve Visit
+      <a href="#booking" class="neon-btn text-slate-950 font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-full transition transform active:scale-95">
+        Book Visit
       </a>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="pt-12 pb-20 max-w-6xl mx-auto px-5">
-    <div class="grid lg:grid-cols-12 gap-10 items-center">
-      <div class="lg:col-span-7">
-        <div class="inline-flex items-center space-x-2 bg-teal-50/80 border border-teal-200/60 px-3.5 py-1.5 rounded-full mb-6">
-          <span class="w-2 h-2 rounded-full bg-teal-500 animate-ping"></span>
-          <span class="text-xs font-semibold text-teal-800 uppercase tracking-wider">Accepting New Patients Today</span>
+  <!-- Hero Section with 3D Canvas -->
+  <section class="relative pt-10 pb-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 space-y-6 z-10">
+          <div class="inline-flex items-center gap-2 bg-cyan-950/60 border border-cyan-500/30 px-4 py-1.5 rounded-full">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-300">Gentle • Digital • Laser Guided</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-display font-extrabold tracking-tight leading-[1.08] text-white">
+            Future of Painless Dentistry at <span class="neon-gradient-text">Gayatri Dental</span>.
+          </h1>
+
+          <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-xl">
+            Forget fear and painful needles. Experience microscopic single-visit root canals, computerized smile designing, and Swiss implants right here in Raipur.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="#booking" class="neon-btn text-slate-950 font-extrabold text-sm px-8 py-4 rounded-2xl transition hover:scale-105 active:scale-95 flex items-center gap-2">
+              <span>Instant Appointment Booking</span>
+              <span>⚡</span>
+            </a>
+            <a href="https://wa.me/919876543210?text=Hello%20Gayatri%20Dental%20Clinic%2C%20I%20want%20to%20consult%20Dr.%20about%20my%20teeth" target="_blank" class="glass-panel text-white font-bold text-sm px-6 py-4 rounded-2xl hover:bg-white/10 transition border border-white/10 flex items-center gap-2">
+              <span class="text-emerald-400">💬</span>
+              <span>WhatsApp Doctor</span>
+            </a>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="pt-6 border-t border-slate-800 grid grid-cols-3 gap-6 max-w-lg">
+            <div>
+              <p class="text-2xl font-display font-extrabold text-white">4.9 ★</p>
+              <p class="text-[11px] text-slate-400 font-medium">Google Reviews</p>
+            </div>
+            <div>
+              <p class="text-2xl font-display font-extrabold text-white">0% EMI</p>
+              <p class="text-[11px] text-slate-400 font-medium">On Aligners/Implants</p>
+            </div>
+            <div>
+              <p class="text-2xl font-display font-extrabold text-white">100%</p>
+              <p class="text-[11px] text-slate-400 font-medium">Pain-Free Protocol</p>
+            </div>
+          </div>
         </div>
 
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.12]">
-          Crafting confident smiles with gentle, <span class="bg-gradient-to-r from-sky-600 to-teal-600 bg-clip-text text-transparent">painless touch</span>.
-        </h1>
-
-        <p class="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
-          Experience ultra-modern dentistry designed for zero anxiety. From cosmetic makeovers to painless root canals—precision meets comfort.
-        </p>
-
-        <!-- CTA Buttons -->
-        <div class="mt-8 flex flex-wrap gap-4 items-center">
-          <a href="#booking" class="gradient-badge text-white font-semibold text-sm sm:text-base px-7 py-3.5 rounded-2xl shadow-lg shadow-teal-500/20 hover:scale-[1.01] active:scale-[0.99] transition">
-            Book Priority Slot
-          </a>
-          <a href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20know%20about%20dental%20treatments" target="_blank" class="flex items-center space-x-2.5 bg-white border border-slate-200/80 px-5 py-3.5 rounded-2xl text-slate-700 font-semibold text-sm hover:bg-slate-50 transition shadow-sm">
-            <span class="text-emerald-500 text-base">💬</span>
-            <span>WhatsApp Clinic</span>
-          </a>
-        </div>
-
-        <!-- Trust Badges -->
-        <div class="mt-10 pt-8 border-t border-slate-100 grid grid-cols-3 gap-4 text-left">
-          <div>
-            <p class="text-2xl font-black text-slate-900">4.9★</p>
-            <p class="text-xs text-slate-500 font-medium">Google Reviews</p>
-          </div>
-          <div>
-            <p class="text-2xl font-black text-slate-900">100%</p>
-            <p class="text-xs text-slate-500 font-medium">Pain-Free Tech</p>
-          </div>
-          <div>
-            <p class="text-2xl font-black text-slate-900">15k+</p>
-            <p class="text-xs text-slate-500 font-medium">Smiles Restored</p>
+        <!-- Right: Real-time 3D Interactive Canvas -->
+        <div class="lg:col-span-5 relative flex items-center justify-center">
+          <div class="w-full h-[380px] sm:h-[440px] relative rounded-3xl glass-panel overflow-hidden border border-white/10 flex items-center justify-center">
+            <!-- 3D Canvas Mount Point -->
+            <canvas id="threeCanvas" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+            
+            <div class="absolute bottom-4 inset-x-4 glass-panel p-3.5 rounded-2xl border border-white/10 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold text-sm">
+                  3D
+                </div>
+                <div>
+                  <p class="text-xs font-bold text-white uppercase">Interactive AI Scan Simulation</p>
+                  <p class="text-[10px] text-slate-400">Drag or touch on sphere to rotate in 3D</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Before & After Transformation Slider -->
+  <section id="transformations" class="py-20 bg-[#050811] relative">
+    <div class="max-w-5xl mx-auto px-5">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-cyan-400 text-xs font-extrabold uppercase tracking-widest">Real Transformations</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-black mt-2 text-white">Smile Makeover Results</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-2">Slide left / right to see real patient tooth realignment & whitening.</p>
       </div>
 
-      <!-- Hero Visual Card -->
-      <div class="lg:col-span-5 relative">
-        <div class="relative bg-white rounded-3xl p-7 border border-slate-100 shadow-xl soft-glow">
-          <div class="flex items-center justify-between mb-6">
-            <span class="text-xs uppercase font-bold tracking-wider text-slate-400">Chief Dentist</span>
-            <span class="bg-emerald-50 text-emerald-700 text-[11px] font-bold px-2.5 py-1 rounded-full border border-emerald-100">Verified Specialist</span>
+      <div class="max-w-2xl mx-auto">
+        <div class="slider-container h-72 sm:h-96 shadow-2xl border border-white/15" id="comparisonSlider">
+          <!-- After Image -->
+          <img 
+            src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1000&q=80" 
+            alt="Bright healthy smile after treatment" 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <span class="absolute top-4 right-4 bg-emerald-500 text-black font-extrabold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">After Result</span>
+
+          <!-- Before Image -->
+          <div class="img-overlay" id="overlayDiv">
+            <img 
+              src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=1000&q=80" 
+              alt="Before dental treatment" 
+              class="absolute top-0 left-0 max-w-none h-full w-[672px] object-cover filter contrast-125 brightness-90"
+            />
+            <span class="absolute top-4 left-4 bg-slate-900 text-white font-extrabold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">Before</span>
           </div>
 
-          <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-center space-x-4">
-              <div class="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center text-xl font-bold text-sky-700">
-                DR
+          <!-- Divider Handle -->
+          <div class="absolute top-0 bottom-0 w-1 bg-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.8)] pointer-events-none z-20" id="sliderHandle" style="left: 50%;">
+            <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-cyan-400 text-slate-950 rounded-full flex items-center justify-center font-black text-xs shadow-lg">
+              ⇆
+            </div>
+          </div>
+
+          <input type="range" min="0" max="100" value="50" class="slider-range" id="sliderRange" />
+        </div>
+        <p class="text-center text-xs text-slate-500 mt-3">Touch and drag the slider</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Futuristic Treatments Grid -->
+  <section id="services" class="py-24 max-w-7xl mx-auto px-5">
+    <div class="text-center max-w-xl mx-auto mb-16">
+      <span class="text-cyan-400 text-xs font-extrabold uppercase tracking-widest">Specialized Care</span>
+      <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-2">Signature Clinical Services</h2>
+      <p class="text-sm text-slate-400 mt-2">Zero pain protocol equipped with latest dental micro-instruments.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Card 1 -->
+      <div class="glass-panel glass-panel-hover rounded-3xl overflow-hidden p-6 transition-all duration-300">
+        <div class="h-44 rounded-2xl overflow-hidden mb-5">
+          <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80" alt="Root canal surgery" class="w-full h-full object-cover hover:scale-110 transition duration-500" />
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold text-white text-lg">Single-Visit Laser RCT</h3>
+          <span class="text-[10px] font-bold text-cyan-400 bg-cyan-950/80 px-2 py-1 rounded-full border border-cyan-500/30">100% Painless</span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">Rotary digital endodontics completed in 45 minutes with zero anesthesia discomfort.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="glass-panel glass-panel-hover rounded-3xl overflow-hidden p-6 transition-all duration-300">
+        <div class="h-44 rounded-2xl overflow-hidden mb-5">
+          <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=600&q=80" alt="Clear Aligners" class="w-full h-full object-cover hover:scale-110 transition duration-500" />
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold text-white text-lg">Clear Invisible Aligners</h3>
+          <span class="text-[10px] font-bold text-purple-400 bg-purple-950/80 px-2 py-1 rounded-full border border-purple-500/30">No Braces</span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">Straighten uneven teeth seamlessly with removable crystal-clear trays.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="glass-panel glass-panel-hover rounded-3xl overflow-hidden p-6 transition-all duration-300">
+        <div class="h-44 rounded-2xl overflow-hidden mb-5">
+          <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=600&q=80" alt="Dental Implants" class="w-full h-full object-cover hover:scale-110 transition duration-500" />
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold text-white text-lg">Permanent Implants</h3>
+          <span class="text-[10px] font-bold text-emerald-400 bg-emerald-950/80 px-2 py-1 rounded-full border border-emerald-500/30">Lifetime</span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">Restore missing teeth permanently with medical grade biocompatible titanium.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="glass-panel glass-panel-hover rounded-3xl overflow-hidden p-6 transition-all duration-300">
+        <div class="h-44 rounded-2xl overflow-hidden mb-5">
+          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80" alt="Ultrasonic cleaning" class="w-full h-full object-cover hover:scale-110 transition duration-500" />
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold text-white text-lg">Ultrasonic Scaling & Polish</h3>
+          <span class="text-[10px] font-bold text-cyan-400 bg-cyan-950/80 px-2 py-1 rounded-full border border-cyan-500/30">Deep Clean</span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">Gentle ultrasonic waves eliminate stubborn plaque and bad breath instantly.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="glass-panel glass-panel-hover rounded-3xl overflow-hidden p-6 transition-all duration-300">
+        <div class="h-44 rounded-2xl overflow-hidden mb-5">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=80" alt="Laser whitening" class="w-full h-full object-cover hover:scale-110 transition duration-500" />
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold text-white text-lg">Laser Enamel Whitening</h3>
+          <span class="text-[10px] font-bold text-amber-400 bg-amber-950/80 px-2 py-1 rounded-full border border-amber-500/30">6 Shades Up</span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">High-grade laser treatment to erase years of tea, tobacco and coffee stains.</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="glass-panel glass-panel-hover rounded-3xl overflow-hidden p-6 transition-all duration-300">
+        <div class="h-44 rounded-2xl overflow-hidden mb-5">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80" alt="Pediatric dental care" class="w-full h-full object-cover hover:scale-110 transition duration-500" />
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold text-white text-lg">Child Dental Care</h3>
+          <span class="text-[10px] font-bold text-rose-400 bg-rose-950/80 px-2 py-1 rounded-full border border-rose-500/30">Fear-Free</span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">Specialized pediatric setup designed to make dental checkups fun for children.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Live Location & Interactive GPS Section -->
+  <section id="location" class="py-20 bg-[#050811] border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        
+        <div class="lg:col-span-5 space-y-6">
+          <span class="text-xs uppercase font-extrabold tracking-widest text-cyan-400 bg-cyan-950/60 border border-cyan-500/30 px-3.5 py-1 rounded-full">
+            📍 Raipur Studio
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-white leading-tight">
+            Visit Gayatri Dental Clinic
+          </h2>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Centrally situated in Raipur with spacious parking and peaceful, sterilized clinical environment.
+          </p>
+
+          <div class="space-y-4 pt-2">
+            <div class="glass-panel p-4 rounded-2xl border border-white/10 flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold text-lg shrink-0">
+                🏥
               </div>
               <div>
-                <h4 class="font-bold text-slate-900 text-sm">Dr. Amit Mehra, MDS</h4>
-                <p class="text-xs text-slate-500">Gold Medalist | Aesthetic & Implant Expert</p>
+                <h4 class="text-xs font-bold text-white uppercase">Clinic Address</h4>
+                <p class="text-xs text-slate-400 mt-1">Gayatri Dental Clinic, Main Road, Raipur, Chhattisgarh</p>
               </div>
             </div>
 
-            <div class="p-4 rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50/50 border border-teal-100/70">
-              <div class="flex items-center space-x-2 text-teal-800 text-xs font-bold mb-1">
-                <span>🛡️ High Sterilization Standards</span>
+            <div class="glass-panel p-4 rounded-2xl border border-white/10 flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold text-lg shrink-0">
+                ⏰
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Hospital-grade 4-step autoclave sterilization protocol followed for every single appointment.
-              </p>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex justify-between items-center text-xs">
-              <span class="text-slate-500">Timings:</span>
-              <span class="font-bold text-slate-800">10:00 AM – 8:30 PM (Mon-Sat)</span>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase">Consultation Hours</h4>
+                <p class="text-xs text-slate-400 mt-1">Monday – Saturday: 10:00 AM – 8:30 PM</p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Aesthetic Services Grid -->
-  <section id="services" class="py-16 bg-white border-y border-slate-100">
-    <div class="max-w-6xl mx-auto px-5">
-      <div class="max-w-xl mx-auto text-center mb-12">
-        <span class="text-teal-600 text-xs font-bold uppercase tracking-widest">Clinical Excellence</span>
-        <h2 class="text-3xl font-extrabold text-slate-900 mt-2">Specialized Treatments</h2>
-        <p class="text-sm text-slate-500 mt-2">Personalized solutions crafted with micro-precision.</p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Card 1 -->
-        <div class="p-6 rounded-3xl bg-[#fafbfd] border border-slate-100 hover:border-teal-200 transition-all duration-200 hover:-translate-y-1">
-          <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center text-xl font-bold mb-4">✨</div>
-          <h3 class="font-bold text-slate-900 text-base">Cosmetic Smile Designing</h3>
-          <p class="text-xs text-slate-600 mt-2 leading-relaxed">Porcelain veneers, tooth contouring, and aesthetic bonding for a picture-perfect Hollywood smile.</p>
+          <a 
+            href="https://maps.app.goo.gl/CnfjdWTQurgwVZwq9" 
+            target="_blank" 
+            class="inline-flex items-center gap-2 neon-btn text-slate-950 font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-xl transition hover:scale-105"
+          >
+            <span>Open in Google Maps (GPS Turn-by-Turn)</span>
+            <span>↗</span>
+          </a>
         </div>
 
-        <!-- Card 2 -->
-        <div class="p-6 rounded-3xl bg-[#fafbfd] border border-slate-100 hover:border-teal-200 transition-all duration-200 hover:-translate-y-1">
-          <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-700 flex items-center justify-center text-xl font-bold mb-4">📐</div>
-          <h3 class="font-bold text-slate-900 text-base">Clear Invisible Aligners</h3>
-          <p class="text-xs text-slate-600 mt-2 leading-relaxed">No metal wires, no restrictions. Remove them whenever you eat while your teeth straighten seamlessly.</p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="p-6 rounded-3xl bg-[#fafbfd] border border-slate-100 hover:border-teal-200 transition-all duration-200 hover:-translate-y-1">
-          <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-xl font-bold mb-4">⚡</div>
-          <h3 class="font-bold text-slate-900 text-base">Single-Visit Laser RCT</h3>
-          <p class="text-xs text-slate-600 mt-2 leading-relaxed">High precision rotary endodontics. Completely painless procedure completed in just 45 minutes.</p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="p-6 rounded-3xl bg-[#fafbfd] border border-slate-100 hover:border-teal-200 transition-all duration-200 hover:-translate-y-1">
-          <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-700 flex items-center justify-center text-xl font-bold mb-4">🔩</div>
-          <h3 class="font-bold text-slate-900 text-base">Swiss Dental Implants</h3>
-          <p class="text-xs text-slate-600 mt-2 leading-relaxed">Lifelong titanium implants that feel, bite, and look completely indistinguishable from natural teeth.</p>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="p-6 rounded-3xl bg-[#fafbfd] border border-slate-100 hover:border-teal-200 transition-all duration-200 hover:-translate-y-1">
-          <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-bold mb-4">💎</div>
-          <h3 class="font-bold text-slate-900 text-base">Laser Teeth Whitening</h3>
-          <p class="text-xs text-slate-600 mt-2 leading-relaxed">Instantly brighten enamel up to 6–8 shades in a single sitting with zero enamel sensitivity.</p>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="p-6 rounded-3xl bg-[#fafbfd] border border-slate-100 hover:border-teal-200 transition-all duration-200 hover:-translate-y-1">
-          <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-700 flex items-center justify-center text-xl font-bold mb-4">🛡️</div>
-          <h3 class="font-bold text-slate-900 text-base">Ultrasonic Gum Wellness</h3>
-          <p class="text-xs text-slate-600 mt-2 leading-relaxed">Advanced plaque cleaning and laser gum contouring to eliminate bleeding and bad breath.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Booking Form -->
-  <section id="booking" class="py-20 max-w-3xl mx-auto px-5">
-    <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-lg soft-glow">
-      <div class="text-center mb-8">
-        <span class="text-xs uppercase font-bold tracking-wider text-teal-600 bg-teal-50 px-3 py-1 rounded-full">Fast Consultation</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">Book Your Slot</h2>
-        <p class="text-xs sm:text-sm text-slate-500 mt-1">Directly sends appointment details to the clinic WhatsApp.</p>
-      </div>
-
-      <form id="appointmentForm" class="space-y-4">
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1.5">Full Name</label>
-            <input type="text" id="patientName" required placeholder="e.g. Rahul Sharma" class="w-full text-sm px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1.5">Contact Number</label>
-            <input type="tel" id="patientPhone" required placeholder="e.g. 9876543210" class="w-full text-sm px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition" />
-          </div>
-        </div>
-
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1.5">Treatment Required</label>
-            <select id="patientService" class="w-full text-sm px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition bg-white">
-              <option>General Dental Checkup</option>
-              <option>Cosmetic Smile Makeover</option>
-              <option>Clear Invisible Aligners</option>
-              <option>Single-Sitting Painless RCT</option>
-              <option>Dental Implants</option>
-              <option>Laser Teeth Whitening</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1.5">Preferred Date</label>
-            <input type="date" id="appointmentDate" required class="w-full text-sm px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition" />
-          </div>
-        </div>
-
-        <button type="submit" class="w-full mt-2 gradient-badge text-white font-bold py-3.5 rounded-xl shadow-md hover:opacity-95 transition text-sm flex items-center justify-center space-x-2">
-          <span>Confirm & Send Booking on WhatsApp</span>
-          <span>→</span>
-        </button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Sticky Bottom Floating Action Bar (Mobile Client Pitch Hero) -->
-  <div class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-100 px-4 py-3 flex gap-3 z-50 shadow-lg">
-    <a href="tel:+919876543210" class="flex-1 bg-slate-100 text-slate-800 text-center py-2.5 rounded-xl font-bold text-xs border border-slate-200 flex items-center justify-center space-x-1.5">
-      <span>📞</span>
-      <span>Direct Call</span>
-    </a>
-    <a href="#booking" class="flex-1 gradient-badge text-white text-center py-2.5 rounded-xl font-bold text-xs shadow-sm flex items-center justify-center space-x-1.5">
-      <span>📅</span>
-      <span>Book Visit</span>
-    </a>
-  </div>
-
-  <footer class="py-8 text-center text-xs text-slate-400 mb-16 md:mb-0">
-    © 2026 AuraSmile Studio Prototype. Designed for Dental Excellence.
-  </footer>
-
-  <script>
-    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('patientName').value.trim();
-      const phone = document.getElementById('patientPhone').value.trim();
-      const service = document.getElementById('patientService').value;
-      const date = document.getElementById('appointmentDate').value;
-      
-      // Client phone number (change here for each client)
-      const clinicPhone = "919876543210";
-      
-      const message = `*NEW PATIENT APPOINTMENT REQUEST*%0A---------------------------%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Treatment:* ${service}%0A*Preferred Date:* ${date}%0A---------------------------%0A_Sent via AuraSmile Web Portal_`;
-      
-      window.open(`https://wa.me/${clinicPhone}?text=${message}`, '_blank');
-    });
-  </script>
-</body>
-</html>
-
+        <!-- Embedded Interactive Google Map -->
+        <div class="lg:col-span-7">
+          <div class="w-full h-80 sm:h-96 rounded-3xl overflow-hidden glass-panel border border-white/10 shadow-2xl relative">
+            <iframe 
+              src="https://maps.google.com/maps?q=Gayatri+Dental+Clinic+Raipur&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+              width="100%" 
+              height="100%" 
+              style="border:0; filter: invert(90%) hue-rotate(180deg);" 
+              allowfullscreen="" 
+              loading="lazy" 
+              class="w-full h-full opacity-85 hov
